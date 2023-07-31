@@ -1,4 +1,7 @@
-export const sortFunction = (key, key2, a, b) => {
+export const sortFunction = (key, key2, a, b, number) => {
+    if (number) {
+        return parseFloat(a?.[`${key}`]) - parseFloat(b?.[`${key}`]);
+    }
     return key2
         ? a?.[`${key}`]?.[key2]
             .toLowerCase()

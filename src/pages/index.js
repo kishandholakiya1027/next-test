@@ -15,6 +15,7 @@ const ComponentWithLoading = withLoading(DataTable);
 function Home() {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
+  console.log("🚀 ~ file: index.js:18 ~ Home ~ filterData:", filterData)
   const [loader, setLoader] = useState(false);
   const [searchText, setSearchText] = useState("");
 
@@ -62,14 +63,14 @@ function Home() {
 
   };
 
-  const onSort = (key, key2, sort) => {
+  const onSort = (key, key2, sort, number) => {
     setLoader(true);
 
     let sortData = filterData.sort((a, b) => {
       if (sort) {
-        return sortFunction(key, key2, a, b)
+        return sortFunction(key, key2, a, b, number)
       } else {
-        return sortFunction(key, key2, b, a)
+        return sortFunction(key, key2, b, a, number)
 
       }
     });

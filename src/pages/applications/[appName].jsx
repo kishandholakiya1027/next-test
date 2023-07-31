@@ -33,14 +33,14 @@ const Applications = () => {
     }, [])
 
 
-    const onSort = (key, key2, sort) => {
+    const onSort = (key, key2, sort, number) => {
         setLoader(true);
 
         let sortData = filterData.sort((a, b) => {
             if (sort) {
-                return sortFunction(key, key2, a, b)
+                return sortFunction(key, key2, a, b, number)
             } else {
-                return sortFunction(key, key2, b, a)
+                return sortFunction(key, key2, b, a, number)
 
             }
         });

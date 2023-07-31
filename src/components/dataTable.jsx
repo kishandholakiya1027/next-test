@@ -15,9 +15,9 @@ const DataTable = ({ data, onSort }) => {
                     <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                         {tableColumn?.map(item => (
                             <th className="py-3 px-6 text-left">
-                                <div className='flex items-center justify-start' onClick={() => {
+                                <div className='flex items-center justify-start cursor-pointer' onClick={() => {
                                     setSortColumnName(item?.label)
-                                    onSort(item?.key, item?.key2, sortColumnName === item?.label ? !asc : true)
+                                    onSort(item?.key, item?.key2, sortColumnName === item?.label ? !asc : true, item?.number)
                                     sortColumnName === item?.label ? setasc(!asc) : setasc(true)
                                 }}>
 
