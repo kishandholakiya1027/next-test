@@ -48,7 +48,7 @@ const Applications = () => {
         setFilterData(sortData);
     };
 
-    const onChangeSearchText = useCallback(async (event) => {
+    const onChangeSearchText = async (event) => {
         let value = event?.target?.value?.replace(" ", "");
         setLoader(true);
         setSearchText(event?.target?.value);
@@ -69,7 +69,7 @@ const Applications = () => {
             setLoader(false);
         }, 200);
 
-    }, []);
+    };
 
     return (
         <div className="p-6">

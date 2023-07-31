@@ -26,14 +26,17 @@ function Home() {
     setLoader(true);
     await API.getRawData(`${BASE_URL}`)
       .then((data) => {
-        setData(data);
-        setFilterData(data);
+        if (data) {
+          setData(data);
+          setFilterData(data);
+
+        }
       })
       .catch((err) => err)
       .finally(() => setLoader(false));
   };
 
-  const onChangeSearchText = useCallback(async (event) => {
+  const onChangeSearchText = async (event) => {
     let value = event?.target?.value?.replace(" ", "");
     setLoader(true);
 
@@ -46,7 +49,10 @@ function Home() {
           item?.MeterCategory?.replace(" ", "")?.search(re) >= 0 ||
           item?.Location?.replace(" ", "")?.search(re) >= 0
       );
-      setFilterData(items);
+      setTimeout(() => {
+        setFilterData(items);
+
+      }, 500);
     } else {
       setFilterData(data);
     }
@@ -54,7 +60,7 @@ function Home() {
       setLoader(false);
     }, 200);
 
-  }, []);
+  };
 
   const onSort = (key, key2, sort) => {
     setLoader(true);

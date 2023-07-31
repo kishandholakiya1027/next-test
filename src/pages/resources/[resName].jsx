@@ -16,7 +16,6 @@ const Resources = () => {
     const [loader, setLoader] = useState();
     const [searchText, setSearchText] = useState("");
 
-    console.log("🚀 ~ file: [resId].jsx:20 ~ useEffect ~ router?.query?.resId:", router?.query?.resName)
     useEffect(() => {
         if (router?.query?.resName) {
             fetchResByName(router?.query?.resName?.replace(/-/g, " "))
@@ -49,7 +48,7 @@ const Resources = () => {
         setFilterData(sortData);
     };
 
-    const onChangeSearchText = useCallback(async (event) => {
+    const onChangeSearchText = async (event) => {
         let value = event?.target?.value?.replace(" ", "");
         let re = new RegExp(value, "i");
 
@@ -63,7 +62,10 @@ const Resources = () => {
                     item?.MeterCategory?.replace(" ", "")?.search(re) >= 0 ||
                     item?.Location?.replace(" ", "")?.search(re) >= 0
             )
-            setFilterData(sort);
+            setTimeout(() => {
+
+                setFilterData(sort);
+            }, 500);
         } else {
             setFilterData(data);
         }
@@ -71,7 +73,7 @@ const Resources = () => {
             setLoader(false);
         }, 200);
 
-    }, []);
+    };
 
     return (
         <div className="p-6">
