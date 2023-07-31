@@ -1,3 +1,4 @@
+//common custom sorting fuction 
 export const sortFunction = (key, key2, a, b, number) => {
     if (number) {
         return parseFloat(a?.[`${key}`]) - parseFloat(b?.[`${key}`]);
@@ -11,7 +12,7 @@ export const sortFunction = (key, key2, a, b, number) => {
             ?.localeCompare(b?.[`${key}`].toLowerCase());
 }
 
-
+//common search function
 export const searchFunction = async (data, value) => {
     let re = new RegExp(value, "i");
 

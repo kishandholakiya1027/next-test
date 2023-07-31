@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+//higher order component
 const withLoading = (WrappedComponent) => {
     return class extends Component {
         render() {

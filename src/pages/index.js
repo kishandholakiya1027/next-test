@@ -7,15 +7,15 @@ import API from "./api";
 import { BASE_URL } from "../../config";
 import withLoading from "@/components/loading";
 import SearchInput from "@/components/searchInput";
-import { sortFunction } from "@/utils/methods";
+import { searchFunction, sortFunction } from "@/utils/methods";
 const inter = Inter({ subsets: ["latin"] });
 
+//higher order component to reuse logic 
 const ComponentWithLoading = withLoading(DataTable);
 
 function Home() {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
-  console.log("🚀 ~ file: index.js:18 ~ Home ~ filterData:", filterData)
   const [loader, setLoader] = useState(false);
   const [searchText, setSearchText] = useState("");
 
@@ -23,6 +23,7 @@ function Home() {
     fetchData();
   }, []);
 
+  //fetch raw data 
   const fetchData = async () => {
     setLoader(true);
     await API.getRawData(`${BASE_URL}`)
@@ -37,23 +38,16 @@ function Home() {
       .finally(() => setLoader(false));
   };
 
+  // on search location,app name,meter category
+
   const onChangeSearchText = async (event) => {
     let value = event?.target?.value?.replace(" ", "");
     setLoader(true);
 
     setSearchText(event?.target?.value);
-    let re = new RegExp(value, "i");
     if (value) {
-      let items = data?.filter(
-        (item) =>
-          item?.Tags?.["app-name"]?.replace(" ", "")?.search(re) >= 0 ||
-          item?.MeterCategory?.replace(" ", "")?.search(re) >= 0 ||
-          item?.Location?.replace(" ", "")?.search(re) >= 0
-      );
-      setTimeout(() => {
-        setFilterData(items);
+      setFilterData(await searchFunction(data, value));
 
-      }, 500);
     } else {
       setFilterData(data);
     }
@@ -63,6 +57,7 @@ function Home() {
 
   };
 
+  //on sort column 
   const onSort = (key, key2, sort, number) => {
     setLoader(true);
 

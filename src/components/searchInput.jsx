@@ -1,5 +1,5 @@
+//common search input component
 import React from 'react'
-
 const SearchInput = ({ onChange, value }) => {
     return (
         <div className="flex items-center bg-white border rounded-lg shadow-md mb-3">

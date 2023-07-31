@@ -7,6 +7,7 @@ import SearchInput from '@/components/searchInput';
 import API from '../api';
 import { searchFunction, sortFunction } from '@/utils/methods';
 
+//higher order component to reuse logic 
 const ComponentWithLoading = withLoading(DataTable);
 
 const Resources = () => {
@@ -23,6 +24,7 @@ const Resources = () => {
     }, [router?.query?.resName])
 
 
+    //fetch resources data by name
 
     const fetchResByName = useCallback(async (resId) => {
         setLoader(true)
@@ -32,6 +34,7 @@ const Resources = () => {
         }).catch(err => err).finally(() => setLoader(false))
     }, [])
 
+    //on sort column 
 
     const onSort = (key, key2, sort, number) => {
         setLoader(true);
@@ -48,24 +51,18 @@ const Resources = () => {
         setFilterData(sortData);
     };
 
+    // on search location,app name,meter category
+
     const onChangeSearchText = async (event) => {
         let value = event?.target?.value?.replace(" ", "");
-        let re = new RegExp(value, "i");
 
         setLoader(true);
         setSearchText(event?.target?.value);
 
         if (value) {
-            let sort = data?.filter(
-                (item) =>
-                    item?.Tags?.["app-name"]?.replace(" ", "")?.search(re) >= 0 ||
-                    item?.MeterCategory?.replace(" ", "")?.search(re) >= 0 ||
-                    item?.Location?.replace(" ", "")?.search(re) >= 0
-            )
-            setTimeout(() => {
 
-                setFilterData(sort);
-            }, 500);
+            setFilterData(await searchFunction(data, value))
+
         } else {
             setFilterData(data);
         }

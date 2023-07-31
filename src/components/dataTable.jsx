@@ -1,9 +1,11 @@
 // components/DataTable.js
+//common table component
+
 import { tableColumn } from '@/utils/constant';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-const DataTable = ({ data, onSort }) => {
+const DataTable = ({ data = [], onSort }) => {
     const [sortColumnName, setSortColumnName] = useState()
     const [asc, setasc] = useState()
 
@@ -55,14 +57,7 @@ const DataTable = ({ data, onSort }) => {
                             </th>
 
                         ))}
-                        {/* <th className="py-3 px-6 text-left">Business Unit</th>
-                    <th className="py-3 px-6 text-left">Master Category</th>
-                    <th className="py-3 px-6 text-left">Service Name</th>
-                    <th className="py-3 px-6 text-left">Consumed Quantity</th>
-                    <th className="py-3 px-6 text-left">Cost</th>
-                    <th className="py-3 px-6 text-left">Unit of measure</th>
-                    <th className="py-3 px-6 text-left">Location</th>
-                    <th className="py-3 px-6 text-left">Date</th> */}
+
                     </tr>
                 </thead>
                 <tbody>
